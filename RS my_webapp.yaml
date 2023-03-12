@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Replicaset
 metadata:
-  name: mysql
+  name: mywebapp
   labels:
-    app: employees
+    app: mysql
 spec:
   selector:
     matchLabels:
-        app: employees
+        app: mysql
   replicas: 3
   template:
     metadata:
       labels:
-        app: employees
+        app: mysql
     spec:
       containers:
-      - name: mysql
+      - name: mywebapp
         image: 344625735300.dkr.ecr.us-east-1.amazonaws.com/mysql:v0.2
         # image: gcr.io/google-samples/gb-frontend:v4
         env: 
@@ -25,5 +25,9 @@ spec:
           value: "pw"
         - name: MYSQL_ROOT_PASSWORD
           value: "pw"
+        - name:   DBPORT
+          value:  "3306"
+        - name: DBHOST
+          value:
         ports:
-        - containerPort: 3306
+        - containerPort: 8080
